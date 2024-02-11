@@ -1,4 +1,3 @@
-// Clase Question para representar una pregunta
 class Question {
   constructor(question, options, correctAnswer, userAnswer) {
     this.question = question;
@@ -7,38 +6,44 @@ class Question {
     this.userAnswer = userAnswer;
   }
 
-  // Método para verificar si la respuesta del usuario es correcta
   isCorrectAnswer() {
     return this.userAnswer === this.correctAnswer;
   }
 }
 
-// Clase Quiz para representar el cuestionario completo
 class Quiz {
   constructor(questions) {
     this.questions = questions;
+    this.totalQuestions = questions.length;
+    this.correctAnswers = 0;
+    this.incorrectAnswers = 0;
   }
 
-  // Método para hacer las preguntas y mostrar los resultados
   askQuestions() {
     this.questions.forEach((question) => {
       console.log(question.question);
       const userAnswer = question.userAnswer;
       if (question.isCorrectAnswer()) {
         console.log("¡Correcto!");
+        this.correctAnswers++;
       } else {
         console.log(`Incorrecto. La respuesta correcta es ${question.correctAnswer}`);
+        this.incorrectAnswers++;
       }
     });
+    this.displayScore();
+  }
+
+  displayScore() {
+    console.log(`Puntuación final: ${this.correctAnswers}/${this.totalQuestions}`);
   }
 }
 
-// Definición de las preguntas
 const questions = [
-  new Question("¿Cuál es la capital de Francia?", ["París", "Londres", "Roma"], "París", "París"),
-  // Agrega más preguntas aquí según sea necesario
+  new Question("¿Cuál es 3 + 4?", ["5", "6", "7"], "7", "7"),
+  new Question("¿Cuál es 8 - 3?", ["3", "5", "6"], "5", "5"),
+  // Agregar aquí más preguntas
 ];
 
-// Crear una instancia del cuestionario y hacer las preguntas
 const quiz = new Quiz(questions);
 quiz.askQuestions();
